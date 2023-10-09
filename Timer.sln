@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA0452DF-ED3A-4C1C-8A18-69404067D98B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers", "src\Juice.Timers\Juice.Timers.csproj", "{AACBB085-F1D7-4ADD-BF56-3111E2A38043}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.Api", "src\Juice.Timers.Api\Juice.Timers.Api.csproj", "{04CF09B2-B829-4144-B32C-51E679466B01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.EF", "src\Juice.Timers.EF\Juice.Timers.EF.csproj", "{E90DA35C-BAC1-4F6A-ADC2-1D3091509386}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.Api.Contracts", "src\Juice.Timers.Api.Contracts\Juice.Timers.Api.Contracts.csproj", "{81601A7F-DD03-4641-96A3-9B96FF28438A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.EF.PostgreSQL", "src\Juice.Timers.EF.PostgreSQL\Juice.Timers.EF.PostgreSQL.csproj", "{A3269CD7-3601-4562-BD5E-0CE96EF99521}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.EF.SqlServer", "src\Juice.Timers.EF.SqlServer\Juice.Timers.EF.SqlServer.csproj", "{BCE4B937-19B6-443F-9D37-8814C0116DB8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{440E68F2-3619-47AC-A113-DE93A86BA4E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.Tests.Host", "test\Juice.Timers.Tests.Host\Juice.Timers.Tests.Host.csproj", "{6CBEC797-A34C-45DD-8832-B21213901E7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.BackgroundTasks", "src\Juice.Timers.BackgroundTasks\Juice.Timers.BackgroundTasks.csproj", "{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Juice.Timers.Tests", "test\Juice.Timers.Tests\Juice.Timers.Tests.csproj", "{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AACBB085-F1D7-4ADD-BF56-3111E2A38043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AACBB085-F1D7-4ADD-BF56-3111E2A38043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AACBB085-F1D7-4ADD-BF56-3111E2A38043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AACBB085-F1D7-4ADD-BF56-3111E2A38043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CF09B2-B829-4144-B32C-51E679466B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CF09B2-B829-4144-B32C-51E679466B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CF09B2-B829-4144-B32C-51E679466B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CF09B2-B829-4144-B32C-51E679466B01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E90DA35C-BAC1-4F6A-ADC2-1D3091509386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E90DA35C-BAC1-4F6A-ADC2-1D3091509386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E90DA35C-BAC1-4F6A-ADC2-1D3091509386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E90DA35C-BAC1-4F6A-ADC2-1D3091509386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81601A7F-DD03-4641-96A3-9B96FF28438A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81601A7F-DD03-4641-96A3-9B96FF28438A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81601A7F-DD03-4641-96A3-9B96FF28438A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81601A7F-DD03-4641-96A3-9B96FF28438A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3269CD7-3601-4562-BD5E-0CE96EF99521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3269CD7-3601-4562-BD5E-0CE96EF99521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3269CD7-3601-4562-BD5E-0CE96EF99521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3269CD7-3601-4562-BD5E-0CE96EF99521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCE4B937-19B6-443F-9D37-8814C0116DB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE4B937-19B6-443F-9D37-8814C0116DB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE4B937-19B6-443F-9D37-8814C0116DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE4B937-19B6-443F-9D37-8814C0116DB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CBEC797-A34C-45DD-8832-B21213901E7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CBEC797-A34C-45DD-8832-B21213901E7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CBEC797-A34C-45DD-8832-B21213901E7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CBEC797-A34C-45DD-8832-B21213901E7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AACBB085-F1D7-4ADD-BF56-3111E2A38043} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{04CF09B2-B829-4144-B32C-51E679466B01} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{E90DA35C-BAC1-4F6A-ADC2-1D3091509386} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{81601A7F-DD03-4641-96A3-9B96FF28438A} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{A3269CD7-3601-4562-BD5E-0CE96EF99521} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{BCE4B937-19B6-443F-9D37-8814C0116DB8} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{6CBEC797-A34C-45DD-8832-B21213901E7A} = {440E68F2-3619-47AC-A113-DE93A86BA4E6}
+		{0C9F13FD-666F-4CC9-8DC1-15B3B11A6E9A} = {AA0452DF-ED3A-4C1C-8A18-69404067D98B}
+		{8CCA4BAE-B1A9-4A26-B967-9BD70C2064AF} = {440E68F2-3619-47AC-A113-DE93A86BA4E6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E12C0C51-F3CC-4F13-AF15-DC92FCA9915B}
+	EndGlobalSection
+EndGlobal

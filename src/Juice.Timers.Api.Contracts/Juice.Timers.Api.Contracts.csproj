@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>$(AppTargetFramework)</TargetFrameworks>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Juice.Timers.Api</RootNamespace>
+        <Description>Contracts for timer API</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Juice.EventBus" Version="$(JuiceRefVersion)" />
+    </ItemGroup>
+
+</Project>
