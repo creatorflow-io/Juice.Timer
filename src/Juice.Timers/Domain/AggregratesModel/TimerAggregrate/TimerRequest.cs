@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Juice.Timers.Domain.AggregratesModel.TimerAggregrate
 {
-    public class TimerRequest : AggregrateRoot<INotification>
+    public class TimerRequest : AggregateRoot<INotification>
     {
         public TimerRequest() { }
         public TimerRequest(string issuer, string correlationId, DateTimeOffset absoluteExpiried)
