@@ -109,7 +109,7 @@ namespace Juice.Timers.Tests
 
                 services.RegisterRabbitMQEventBus(configuration.GetSection("RabbitMQ"));
 
-                services.AddRequestManager(configuration, options =>
+                services.AddEFMediatorRequestManager(configuration, options =>
                 {
                     options.ConnectionName = provider switch
                     {
@@ -295,7 +295,7 @@ namespace Juice.Timers.Tests
                 services.AddOperationExceptionBehavior();
                 services.AddMediatRTimerManagerBehavior();
 
-                services.AddRedisRequestManager(options =>
+                services.AddRedisMediatorRequestManager(options =>
                 {
                     options.ConnectionString = configuration.GetConnectionString("Redis");
                 });
@@ -367,7 +367,7 @@ namespace Juice.Timers.Tests
 
                 services.RegisterRabbitMQEventBus(configuration.GetSection("RabbitMQ"));
 
-                services.AddRequestManager(configuration, options =>
+                services.AddEFMediatorRequestManager(configuration, options =>
                 {
                     options.ConnectionName = provider switch
                     {
@@ -446,7 +446,7 @@ namespace Juice.Timers.Tests
 
                 services.RegisterRabbitMQEventBus(configuration.GetSection("RabbitMQ"));
 
-                services.AddRequestManager(configuration, options =>
+                services.AddEFMediatorRequestManager(configuration, options =>
                 {
                     options.ConnectionName = provider switch
                     {
