@@ -48,7 +48,7 @@ namespace Juice.Timers.BackgroundTasks
                             using var scope1 = _scopeFactory.CreateScope();
                             var mediator = scope1.ServiceProvider.GetRequiredService<IMediator>();
 
-                            var rs = await mediator.Send(new IdentifiedCommand<CompleteTimerCommand>(new CompleteTimerCommand(expiredTimerId), expiredTimerId));
+                            var rs = await mediator.Send(new IdentifiedCommand<CompleteTimerCommand, IOperationResult>(new CompleteTimerCommand(expiredTimerId), expiredTimerId));
                             if (rs == null || !rs.Succeeded)
                             {
                                 notProcessedIds.Add(expiredTimerId);

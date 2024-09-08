@@ -19,14 +19,14 @@ namespace Juice.Timers.Api.IntegrationEvents.Handlers
         public async Task HandleAsync(TimerStartIntegrationEvent @event)
         {
             var command = new CreateTimerCommand(@event.Issuer, @event.CorrelationId, @event.AbsoluteExpired);
-            var rs = await _mediator.Send(new IdentifiedCommand<CreateTimerCommand, TimerRequest>(command, @event.Id));
+            var rs = await _mediator.Send(new IdentifiedCommand<CreateTimerCommand, TimerRequest?>(command, @event.Id));
             if (rs == null)
             {
-                _logger.LogWarning("No handler found.");
+                _logger.LogWarning("Cannot create timer");
             }
             else
             {
-                _logger.LogInformation("Create timer " + (rs.Succeeded ? "succeeded. Timer Id: " + rs.Data?.Id : "failed. " + rs.ToString()));
+                _logger.LogInformation("Create timer succeeded. Timer Id: " + rs.Id);
             }
         }
     }

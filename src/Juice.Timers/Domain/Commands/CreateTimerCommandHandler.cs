@@ -3,7 +3,7 @@
 namespace Juice.Timers.Domain.Commands
 {
     public class CreateTimerCommandHandler
-        : IRequestHandler<CreateTimerCommand, TimerRequest>
+        : IRequestHandler<CreateTimerCommand, TimerRequest?>
     {
         private ITimerRepository _repository;
 
@@ -12,7 +12,7 @@ namespace Juice.Timers.Domain.Commands
             _repository = repository;
         }
 
-        public async Task<TimerRequest> Handle(CreateTimerCommand request, CancellationToken cancellationToken)
+        public async Task<TimerRequest?> Handle(CreateTimerCommand request, CancellationToken cancellationToken)
         {
             var timerRequest = new TimerRequest(request.Issuer, request.CorrelationId, request.AbsoluteExpired);
             await _repository.CreateAsync(timerRequest, cancellationToken);
@@ -22,7 +22,7 @@ namespace Juice.Timers.Domain.Commands
 
     // Use for Idempotency in Command process
     public class CreateTimerIdentifiedCommandHandler
-        : IdentifiedCommandHandler<CreateTimerCommand, TimerRequest>
+        : IdentifiedCommandHandler<CreateTimerCommand, TimerRequest?>
     {
 
         public CreateTimerIdentifiedCommandHandler(
@@ -32,12 +32,12 @@ namespace Juice.Timers.Domain.Commands
         {
         }
 
-        protected override async Task<TimerRequest?> CreateResultForDuplicateRequestAsync(IdentifiedCommand<CreateTimerCommand, TimerRequest> message)
+        protected override Task<TimerRequest?> CreateResultForDuplicatedRequestAsync(CreateTimerCommand message)
         {
-            return default;
+            return Task.FromResult(default(TimerRequest?));
         }
 
-        protected override (string IdProperty, string CommandId) ExtractInfo(CreateTimerCommand command)
+        protected override (string IdProperty, string CommandId) ExtractDebugInfo(CreateTimerCommand command)
             => (nameof(command.CorrelationId), command.CorrelationId);
     }
 }

@@ -11,7 +11,7 @@
         <ProjectReference Include="..\Juice.Timers\Juice.Timers.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Juice.EF" Version="$(JuiceRefVersion)"/>
+        <PackageReference Include="Juice.EF" Version="$(JuiceVersion)"/>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersion)" />

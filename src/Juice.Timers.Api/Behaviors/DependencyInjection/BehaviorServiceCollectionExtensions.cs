@@ -14,7 +14,7 @@ namespace Juice.Timers.Api
         public static IServiceCollection AddMediatRTimerBehaviors(this IServiceCollection services)
         {
             services.AddMediatRTimerManagerBehavior();
-            services.AddScoped(typeof(IPipelineBehavior<CreateTimerCommand, TimerRequest>), typeof(TimerTransactionBehavior<CreateTimerCommand, TimerRequest>));
+            services.AddScoped(typeof(IPipelineBehavior<CreateTimerCommand, TimerRequest?>), typeof(TimerTransactionBehavior<CreateTimerCommand, TimerRequest?>));
             services.AddScoped(typeof(IPipelineBehavior<CompleteTimerCommand, IOperationResult>), typeof(TimerTransactionBehavior<CompleteTimerCommand, IOperationResult>));
             return services;
         }

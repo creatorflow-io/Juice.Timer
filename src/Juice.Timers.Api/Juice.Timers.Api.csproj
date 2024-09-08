@@ -11,13 +11,13 @@
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="$(MicrosoftExtensionsVersion)" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Juice.Integrations" Version="$(JuiceRefVersion)"/>
+        <PackageReference Include="Juice.Integrations" Version="$(JuiceVersion)"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Juice.Timers.Api.Contracts\Juice.Timers.Api.Contracts.csproj" />
         <ProjectReference Include="..\Juice.Timers.EF\Juice.Timers.EF.csproj" />
         <ProjectReference Include="..\Juice.Timers\Juice.Timers.csproj" />
-        <PackageReference Include="Juice.Integrations" Version="$(JuiceRefVersion)" />
+        <PackageReference Include="Juice.Integrations" Version="$(JuiceVersion)" />
     </ItemGroup>
 
 </Project>
