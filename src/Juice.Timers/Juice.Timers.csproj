@@ -12,6 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Juice.MediatR" Version="$(JuiceRefVersion)"/>
+    <PackageReference Include="Juice.MediatR" Version="$(JuiceVersion)"/>
   </ItemGroup>
 </Project>

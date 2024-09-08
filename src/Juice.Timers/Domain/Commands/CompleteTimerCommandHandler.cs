@@ -43,7 +43,7 @@ namespace Juice.Timers.Domain.Commands
 
     // Use for Idempotency in Command process
     public class CompleteTimerIdentifiedCommandHandler
-        : IdentifiedCommandHandler<CompleteTimerCommand>
+        : IdentifiedCommandHandler<CompleteTimerCommand, IOperationResult>
     {
 
         public CompleteTimerIdentifiedCommandHandler(IMediator mediator,
@@ -52,10 +52,10 @@ namespace Juice.Timers.Domain.Commands
         {
         }
 
-        protected override Task<IOperationResult?> CreateResultForDuplicateRequestAsync(IdentifiedCommand<CompleteTimerCommand> message)
-            => Task.FromResult(default(IOperationResult));
+        protected override Task<IOperationResult> CreateResultForDuplicatedRequestAsync(CompleteTimerCommand message)
+            => Task.FromResult(OperationResult.Success);
 
-        protected override (string IdProperty, string CommandId) ExtractInfo(CompleteTimerCommand command)
+        protected override (string IdProperty, string CommandId) ExtractDebugInfo(CompleteTimerCommand command)
             => (nameof(command.TimerRequestId), command.TimerRequestId.ToString());
 
     }

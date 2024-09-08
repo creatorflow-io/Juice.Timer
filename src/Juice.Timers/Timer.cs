@@ -98,7 +98,7 @@ namespace Juice.Timers
         {
             using var scope = _scopeFactory.CreateScope();
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-            var rs = await mediator.Send(new IdentifiedCommand<CompleteTimerCommand>(new CompleteTimerCommand(request.Id), request.Id));
+            var rs = await mediator.Send(new IdentifiedCommand<CompleteTimerCommand, IOperationResult>(new CompleteTimerCommand(request.Id), request.Id));
             if (rs == null)
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Timer>>();

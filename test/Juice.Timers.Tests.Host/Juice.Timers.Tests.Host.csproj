@@ -21,10 +21,10 @@
         <_WebToolingArtifacts Remove="Properties\PublishProfiles\registry.hub.docker.com_ductrantb.pubxml" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.PostgreSQL" Version="$(JuiceRefVersion)"/>
-        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.SqlServer" Version="$(JuiceRefVersion)"/>
-        <PackageReference Include="Juice.EventBus.RabbitMQ" Version="$(JuiceRefVersion)"/>
-        <PackageReference Include="Juice.MediatR.RequestManager.Redis" Version="$(JuiceRefVersion)"/>
+        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.PostgreSQL" Version="$(JuiceVersion)"/>
+        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.SqlServer" Version="$(JuiceVersion)"/>
+        <PackageReference Include="Juice.EventBus.RabbitMQ" Version="$(JuiceVersion)"/>
+        <PackageReference Include="Juice.MediatR.RequestManager.Redis" Version="$(JuiceVersion)"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\..\src\Juice.Timers.Api\Juice.Timers.Api.csproj" />
