@@ -228,6 +228,7 @@ namespace Juice.Timers.Tests
                 });
 
             var host = hostBuilder.Build();
+            host.Urls.Add("http://localhost:5005");
 
             var eventBus = host.Services.GetRequiredService<IEventBus>();
             eventBus.Subscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
