@@ -1,5 +1,5 @@
 ﻿using Juice.Timers.Domain.Commands;
-using MediatR;
+using Juice.MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

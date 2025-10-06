@@ -14,7 +14,7 @@ namespace Juice.Timers.Api.Domain.EventHandlers
             _logger = logger;
             _integrationService = integrationService;
         }
-        public async Task Handle(TimerExpiredDomainEvent notification, CancellationToken cancellationToken)
+        public async ValueTask Handle(TimerExpiredDomainEvent notification, CancellationToken cancellationToken)
         {
             _logger.CreateLogger<TimerExpiredDomainEventHandler>()
                 .LogTrace("Timer {Identifier} has been completed. Delayed: {Delayed}",

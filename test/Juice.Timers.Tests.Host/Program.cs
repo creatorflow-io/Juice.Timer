@@ -1,9 +1,6 @@
 ﻿using Juice.EF.Extensions;
 using Juice.EventBus;
 using Juice.EventBus.IntegrationEventLog.EF;
-using Juice.EventBus.RabbitMQ;
-using Juice.Integrations;
-using Juice.MediatR.RequestManager.Redis;
 using Juice.Timers;
 using Juice.Timers.Api;
 using Juice.Timers.Api.Domain.EventHandlers;
@@ -21,7 +18,7 @@ ConfigureIntegrations(builder.Services, "PostgreSQL", builder.Configuration);
 
 var app = builder.Build();
 
-InitEvenBusEvent(app);
+await InitEvenBusEvent(app);
 
 await MigrateDbAsync(app);
 
@@ -85,11 +82,11 @@ static void ConfigureIntegrations(IServiceCollection services, string provider, 
     });
 }
 
-static void InitEvenBusEvent(WebApplication app)
+static async Task InitEvenBusEvent(WebApplication app)
 {
     var eventBus = app.Services.GetRequiredService<IEventBus>();
 
-    eventBus.Subscribe<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>();
+    await eventBus.SubscribeAsync<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>();
 }
 
 static async Task MigrateDbAsync(WebApplication app)

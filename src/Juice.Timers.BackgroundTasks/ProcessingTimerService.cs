@@ -2,7 +2,6 @@
 using Juice.Timers.Domain.AggregratesModel.TimerAggregrate;
 using Juice.Timers.Domain.Commands;
 using Juice.Timers.EF;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

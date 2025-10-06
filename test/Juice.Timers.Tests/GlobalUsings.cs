@@ -6,7 +6,7 @@ global using Juice.Extensions.DependencyInjection;
 global using Juice.Timers.Domain.Commands;
 global using Juice.Timers.EF;
 global using Juice.XUnit;
-global using MediatR;
+global using Juice.MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Xunit;

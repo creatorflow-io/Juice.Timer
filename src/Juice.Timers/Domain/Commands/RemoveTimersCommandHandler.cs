@@ -9,7 +9,7 @@
             _repository = repository;
         }
 
-        public async Task<IOperationResult> Handle(CleanupTimersCommand request, CancellationToken cancellationToken)
+        public async ValueTask<IOperationResult> Handle(CleanupTimersCommand request, CancellationToken cancellationToken)
         {
             try
             {

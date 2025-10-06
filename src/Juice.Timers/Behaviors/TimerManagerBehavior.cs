@@ -12,13 +12,16 @@
             _timer = timer;
             _logger = logger;
         }
-        public async Task<R?> Handle(T request, RequestHandlerDelegate<R?> next, CancellationToken cancellationToken)
+
+        public int Order => 0;
+
+        public async ValueTask<R?> Handle(T request, RequestHandlerDelegate<T, R?> next, CancellationToken cancellationToken)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
                 _logger.LogDebug("---- Starting create timer ----. CorrelationId: " + request.CorrelationId);
             }
-            var response = await next();
+            var response = await next.Invoke(request, cancellationToken);
 
             if (response != null)
             {

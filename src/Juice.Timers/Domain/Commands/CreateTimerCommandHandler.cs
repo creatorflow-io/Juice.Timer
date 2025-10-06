@@ -1,5 +1,4 @@
-﻿using Juice.MediatR;
-
+﻿
 namespace Juice.Timers.Domain.Commands
 {
     public class CreateTimerCommandHandler
@@ -12,7 +11,7 @@ namespace Juice.Timers.Domain.Commands
             _repository = repository;
         }
 
-        public async Task<TimerRequest?> Handle(CreateTimerCommand request, CancellationToken cancellationToken)
+        public async ValueTask<TimerRequest?> Handle(CreateTimerCommand request, CancellationToken cancellationToken)
         {
             var timerRequest = new TimerRequest(request.Issuer, request.CorrelationId, request.AbsoluteExpired);
             await _repository.CreateAsync(timerRequest, cancellationToken);
@@ -32,9 +31,9 @@ namespace Juice.Timers.Domain.Commands
         {
         }
 
-        protected override Task<TimerRequest?> CreateResultForDuplicatedRequestAsync(CreateTimerCommand message)
+        protected override ValueTask<TimerRequest?> CreateResultForDuplicatedRequestAsync(CreateTimerCommand message)
         {
-            return Task.FromResult(default(TimerRequest?));
+            return ValueTask.FromResult(default(TimerRequest?));
         }
 
         protected override (string IdProperty, string CommandId) ExtractDebugInfo(CreateTimerCommand command)

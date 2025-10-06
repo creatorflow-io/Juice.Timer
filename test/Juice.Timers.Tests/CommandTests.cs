@@ -7,6 +7,7 @@ using Juice.EventBus.RabbitMQ;
 using Juice.Integrations;
 using Juice.MediatR.RequestManager.EF;
 using Juice.MediatR.RequestManager.Redis;
+using Juice.MediatR;
 using Juice.Services;
 using Juice.Timers.Api;
 using Juice.Timers.Api.Domain.EventHandlers;
@@ -231,7 +232,7 @@ namespace Juice.Timers.Tests
             host.Urls.Add("http://localhost:5005");
 
             var eventBus = host.Services.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
+            await eventBus.SubscribeAsync<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
 
             await host.StartAsync();
 
@@ -254,7 +255,7 @@ namespace Juice.Timers.Tests
                 _output.WriteLine("Waiting for event");
             }
 
-            eventBus.Unsubscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
+            await eventBus.UnsubscribeAsync<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
             await host.StopAsync();
         }
 
@@ -466,7 +467,7 @@ namespace Juice.Timers.Tests
             var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
             var sharedToken = scope.ServiceProvider.GetRequiredService<SharedToken>();
 
-            eventBus.Subscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
+            await eventBus.SubscribeAsync<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
 
             var id = new DefaultStringIdGenerator().GenerateRandomId(6);
 
@@ -487,7 +488,7 @@ namespace Juice.Timers.Tests
             _output.WriteLine($"Delayed: {delayTime}");
             delayTime.Should().BeLessThan(TimeSpan.FromSeconds(1)); // timer interval option
 
-            eventBus.Unsubscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
+            await eventBus.UnsubscribeAsync<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
             await Task.Delay(TimeSpan.FromSeconds(1));
         }
 
@@ -528,11 +529,11 @@ namespace Juice.Timers.Tests
             _sharedToken = sharedToken;
         }
 
-        public Task Handle(TimerExpiredDomainEvent notification, CancellationToken cancellationToken)
+        public ValueTask Handle(TimerExpiredDomainEvent notification, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Timeout event {CorrelationId}", notification.Request.CorrelationId);
             _sharedToken.CTS.Cancel();
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 
