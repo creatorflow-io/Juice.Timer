@@ -78,7 +78,7 @@ static void ConfigureIntegrations(IServiceCollection services, string provider, 
 
     services.AddRedisMediatorRequestManager(options =>
     {
-        options.ConnectionString = configuration.GetConnectionString("Redis");
+        options.UseDirectConnect(configuration.GetConnectionString("Redis"));
     });
 }
 

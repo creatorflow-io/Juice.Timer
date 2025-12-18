@@ -299,7 +299,7 @@ namespace Juice.Timers.Tests
 
                 services.AddRedisMediatorRequestManager(options =>
                 {
-                    options.ConnectionString = configuration.GetConnectionString("Redis");
+                    options.UseDirectConnect(configuration.GetConnectionString("Redis"));
                 });
 
             });
