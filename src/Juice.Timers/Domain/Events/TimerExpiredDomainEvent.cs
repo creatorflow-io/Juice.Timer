@@ -1,6 +1,6 @@
 ﻿namespace Juice.Timers.Domain.Events
 {
-    public class TimerExpiredDomainEvent : INotification
+    public record TimerExpiredDomainEvent : MessageBase, INotification
     {
         public TimerRequest Request { get; private set; }
         public TimerExpiredDomainEvent(TimerRequest request)

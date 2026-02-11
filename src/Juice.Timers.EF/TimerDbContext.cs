@@ -1,5 +1,7 @@
 ﻿using Juice.EF;
 using Juice.Extensions.DependencyInjection;
+using Juice.Messaging.Outbox;
+using Juice.Messaging.Outbox.EF;
 using Juice.Timers.Domain.AggregratesModel.TimerAggregrate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -8,9 +10,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Juice.Timers.EF
 {
-    public class TimerDbContext : DbContextBase
+    public class TimerDbContext : DbContextBase, IOutboxContext
     {
         public DbSet<TimerRequest> TimerRequests { get; set; }
+
+        public DbSet<OutboxEvent> Outbox { get; set; }
+
+        public DbSet<OutboxDelivery> OutboxDeliveries { get; set; }
 
         public TimerDbContext(DbContextOptions<TimerDbContext> options) : base(options)
         {
@@ -34,6 +40,9 @@ namespace Juice.Timers.EF
                 entity.HasIndex(e => e.CorrelationId);
                 entity.HasIndex(e => new { e.AbsoluteExpired, e.IsCompleted });
             });
+
+            new OutboxEntityTypeConfiguration(Schema).Configure(modelBuilder.Entity<OutboxEvent>());
+            new OutboxDeliveryEntityTypeConfiguration(Schema).Configure(modelBuilder.Entity<OutboxDelivery>());
         }
 
     }

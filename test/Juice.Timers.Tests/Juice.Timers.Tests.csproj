@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <UserSecretsId>04b844dd-6bc6-42c0-b93d-f5cf4e228af4</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -35,13 +37,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.PostgreSQL" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.EventBus.IntegrationEventLog.EF.SqlServer" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.EventBus.RabbitMQ" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.MediatR.RequestManager.EF.PostgreSQL" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.MediatR.RequestManager.EF.SqlServer" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.MediatR.RequestManager.Redis" Version="$(JuiceVersion)"/>
-        <PackageReference Include="Juice.XUnit" Version="$(JuiceVersion)"/>
+        <PackageReference Include="Juice.EventBus.RabbitMQ" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.MediatR" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.MediatR.Behaviors" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.Messaging.Idempotency.Redis" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.Messaging.Outbox.Delivery" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.Messaging.Outbox.Migrations.SqlServer" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.Messaging.Outbox.Migrations.PostgreSQL" Version="$(JuiceVersion)" />
+        <PackageReference Include="Juice.XUnit" Version="$(JuiceVersion)" />
     </ItemGroup>
 
     <ItemGroup>

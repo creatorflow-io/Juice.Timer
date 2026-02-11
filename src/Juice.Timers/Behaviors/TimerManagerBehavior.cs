@@ -1,6 +1,6 @@
 ﻿namespace Juice.Timers.Behaviors
 {
-    internal class TimerManagerBehavior<T, R> : IPipelineBehavior<T, R?>
+    internal class TimerManagerBehavior<T, R> : IPipelineBehavior<T, R>
         where T : CreateTimerCommand, IRequest<R>
         where R : TimerRequest
     {
@@ -15,7 +15,7 @@
 
         public int Order => 0;
 
-        public async ValueTask<R?> Handle(T request, RequestHandlerDelegate<T, R?> next, CancellationToken cancellationToken)
+        public async ValueTask<R> Handle(T request, RequestHandlerDelegate<T, R> next, CancellationToken cancellationToken)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
@@ -23,15 +23,12 @@
             }
             var response = await next.Invoke(request, cancellationToken);
 
-            if (response != null)
+            if (_logger.IsEnabled(LogLevel.Debug))
             {
-                if (_logger.IsEnabled(LogLevel.Debug))
-                {
-                    _logger.LogDebug("---- Ended timer creation ----. CorrelationId: " + response.CorrelationId + ". Start Timer Id: " + response.Id);
-                }
-
-                await _timer.StartAsync(response);
+                _logger.LogDebug("---- Ended timer creation ----. CorrelationId: " + response.CorrelationId + ". Start Timer Id: " + response.Id);
             }
+
+            await _timer.StartAsync(response);
             return response;
         }
     }

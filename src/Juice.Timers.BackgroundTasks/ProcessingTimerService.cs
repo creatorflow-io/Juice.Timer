@@ -1,4 +1,7 @@
-﻿using Juice.MediatR;
+﻿using Azure.Messaging;
+using Juice.MediatR;
+using Juice.Messaging;
+using Juice.Services;
 using Juice.Timers.Domain.AggregratesModel.TimerAggregrate;
 using Juice.Timers.Domain.Commands;
 using Juice.Timers.EF;
@@ -45,9 +48,15 @@ namespace Juice.Timers.BackgroundTasks
                         await Parallel.ForEachAsync(expiredTimerIds, async (expiredTimerId, token) =>
                         {
                             using var scope1 = _scopeFactory.CreateScope();
+                            MessageContext.Initialize(
+                               correlationId: StringIdGenerator.Instance.GenerateRandomId(6),
+                               causationId: expiredTimerId.ToString(),
+                               executionId: StringIdGenerator.Instance.GenerateUniqueId(),
+                               source: "ProcessingTimerService"
+                               );
                             var mediator = scope1.ServiceProvider.GetRequiredService<IMediator>();
 
-                            var rs = await mediator.Send(new IdentifiedCommand<CompleteTimerCommand, IOperationResult>(new CompleteTimerCommand(expiredTimerId), expiredTimerId));
+                            var rs = await mediator.Send(new CompleteTimerCommand(expiredTimerId));
                             if (rs == null || !rs.Succeeded)
                             {
                                 notProcessedIds.Add(expiredTimerId);

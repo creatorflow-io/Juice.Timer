@@ -19,24 +19,4 @@ namespace Juice.Timers.Domain.Commands
         }
     }
 
-    // Use for Idempotency in Command process
-    public class CreateTimerIdentifiedCommandHandler
-        : IdentifiedCommandHandler<CreateTimerCommand, TimerRequest?>
-    {
-
-        public CreateTimerIdentifiedCommandHandler(
-            IMediator mediator,
-            IRequestManager requestManager, ILogger<CreateTimerIdentifiedCommandHandler> logger)
-            : base(mediator, requestManager, logger)
-        {
-        }
-
-        protected override ValueTask<TimerRequest?> CreateResultForDuplicatedRequestAsync(CreateTimerCommand message)
-        {
-            return ValueTask.FromResult(default(TimerRequest?));
-        }
-
-        protected override (string IdProperty, string CommandId) ExtractDebugInfo(CreateTimerCommand command)
-            => (nameof(command.CorrelationId), command.CorrelationId);
-    }
 }

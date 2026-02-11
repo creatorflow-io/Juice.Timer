@@ -1,4 +1,4 @@
-﻿using Juice.Integrations.EventBus;
+﻿using Juice.Messaging.Outbox;
 using Juice.Timers.Api.IntegrationEvents.Events;
 using Juice.Timers.EF;
 
@@ -6,13 +6,13 @@ namespace Juice.Timers.Api.Domain.EventHandlers
 {
     public class TimerExpiredDomainEventHandler : INotificationHandler<TimerExpiredDomainEvent>
     {
-        private IIntegrationEventService<TimerDbContext> _integrationService;
+        private IOutboxService<TimerDbContext> _outbox;
         private readonly ILoggerFactory _logger;
         public TimerExpiredDomainEventHandler(ILoggerFactory logger,
-            IIntegrationEventService<TimerDbContext> integrationService)
+            IOutboxService<TimerDbContext> integrationService)
         {
             _logger = logger;
-            _integrationService = integrationService;
+            _outbox = integrationService;
         }
         public async ValueTask Handle(TimerExpiredDomainEvent notification, CancellationToken cancellationToken)
         {
@@ -21,7 +21,7 @@ namespace Juice.Timers.Api.Domain.EventHandlers
                     notification.Request.Id, DateTimeOffset.Now - notification.Request.AbsoluteExpired);
 
             var @event = new TimerExpiredIntegrationEvent(notification.Request.Issuer, notification.Request.CorrelationId, notification.Request.AbsoluteExpired);
-            await _integrationService.AddAndSaveEventAsync(@event);
+            await _outbox.AddEventAsync(@event);
         }
     }
 }

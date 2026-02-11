@@ -12,6 +12,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Juice.EF" Version="$(JuiceVersion)"/>
+        <PackageReference Include="Juice.Messaging.Outbox.EF" Version="$(JuiceVersion)"/>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="$(EFVersion)" />

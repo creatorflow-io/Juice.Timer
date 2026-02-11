@@ -1,6 +1,4 @@
 ﻿using Juice.EF.Extensions;
-using Juice.EventBus;
-using Juice.EventBus.IntegrationEventLog.EF;
 using Juice.Timers;
 using Juice.Timers.Api;
 using Juice.Timers.Api.Domain.EventHandlers;
@@ -17,8 +15,6 @@ ConfigureTimer(builder.Services, "PostgreSQL", builder.Configuration);
 ConfigureIntegrations(builder.Services, "PostgreSQL", builder.Configuration);
 
 var app = builder.Build();
-
-await InitEvenBusEvent(app);
 
 await MigrateDbAsync(app);
 
@@ -55,38 +51,39 @@ static void ConfigureTimer(IServiceCollection services, string provider, IConfig
     {
         options.RegisterServicesFromAssemblyContaining<TimerExpiredDomainEventHandler>();
         options.RegisterServicesFromAssemblyContaining<TimerExpiredDomainEvent>();
+        options.AddOperationLoggingBehavior();
+        options.AddIdempotencyRequestBehavior(idempotent => {
+            idempotent.Messaging.AddIdempotencyRedis(redis =>
+            {
+                redis.ConnectionString = configuration.GetConnectionString("Redis");
+            });
+        });
+        options.AddTimerTransactionBehaviors();
     });
-    services.AddOperationExceptionBehavior();
-    services.AddMediatRTimerBehaviors();
 
-    services.AddTransient<TimerStartIntegrationEventHandler>();
 }
 
 static void ConfigureIntegrations(IServiceCollection services, string provider, IConfiguration configuration)
 {
-    services.AddIntegrationEventService()
-        .AddIntegrationEventLog()
-        .RegisterContext<TimerDbContext>("App");
-
-    services.RegisterRabbitMQEventBus(configuration.GetSection("RabbitMQ"),
-        options =>
+    services.AddMessaging()
+        .AddOutbox()
+        .AddPublishingPolicies(configuration.GetSection("EventBus:PublishingPolicies"))
+        .AddDelivery(delivery =>
         {
-            options.BrokerName = "topic.juice_bus";
-            options.SubscriptionClientName = "juic_timer_test_host_events";
-            options.ExchangeType = "topic";
+            delivery.AddDeliveryPolicies(configuration.GetSection("EventBus:DeliveryPolicies"));
+            delivery.AddDeliveryProcessor<TimerDbContext>("rabbitmq");
+        })
+        .AddEventBus()
+        .AddRabbitMQ(cfg =>
+        {
+            cfg.AddConnection("rabbitmq", configuration.GetSection("EventBus:Connections:RabbitMQ"));
+            cfg.AddProducer("rabbitmq", "rabbitmq");
+            cfg.AddConsumer("rabbitmq.x.timerhost", "testhost_timer_queue", "rabbitmq", ccfg =>
+            {
+                ccfg.Subscribe<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>();
+            });
         });
 
-    services.AddRedisMediatorRequestManager(options =>
-    {
-        options.UseDirectConnect(configuration.GetConnectionString("Redis"));
-    });
-}
-
-static async Task InitEvenBusEvent(WebApplication app)
-{
-    var eventBus = app.Services.GetRequiredService<IEventBus>();
-
-    await eventBus.SubscribeAsync<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>();
 }
 
 static async Task MigrateDbAsync(WebApplication app)
@@ -94,8 +91,4 @@ static async Task MigrateDbAsync(WebApplication app)
     using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<TimerDbContext>();
     await dbContext.MigrateAsync();
-
-    var logContextFactory = scope.ServiceProvider.GetRequiredService<Func<TimerDbContext, IntegrationEventLogContext>>();
-    var logContext = logContextFactory(dbContext);
-    await logContext.MigrateAsync();
 }

@@ -8,12 +8,12 @@ namespace Juice.Timers
         /// <summary>
         /// Try to start timer after created
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="builder"></param>
         /// <returns></returns>
-        public static IServiceCollection AddMediatRTimerManagerBehavior(this IServiceCollection services)
+        public static MediatorBuilder AddTimerManagerBehavior(this MediatorBuilder builder)
         {
-            services.AddScoped(typeof(IPipelineBehavior<CreateTimerCommand, TimerRequest>), typeof(TimerManagerBehavior<CreateTimerCommand, TimerRequest>));
-            return services;
+            builder.Services.AddScoped<IPipelineBehavior<CreateTimerCommand, TimerRequest>, TimerManagerBehavior<CreateTimerCommand, TimerRequest>>();
+            return builder;
         }
 
     }
