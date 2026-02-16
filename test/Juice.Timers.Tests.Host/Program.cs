@@ -80,7 +80,7 @@ static void ConfigureIntegrations(IServiceCollection services, string provider, 
             cfg.AddProducer("rabbitmq", "rabbitmq");
             cfg.AddConsumer("rabbitmq.x.timerhost", "testhost_timer_queue", "rabbitmq", ccfg =>
             {
-                ccfg.Subscribe<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>();
+                ccfg.Subscribe<TimerStartIntegrationEvent, TimerStartIntegrationEventHandler>("timer.start.#");
             });
         });
 

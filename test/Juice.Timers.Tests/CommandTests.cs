@@ -141,12 +141,12 @@ namespace Juice.Timers.Tests
                         cfg.AddConnection(name: "rabbitmq", configuration.GetSection("EventBus:Connections:RabbitMQ"))
                             .AddInfrastructureTopology("rabbitmq", icfg =>
                             {
-                                icfg.DeclareExchange("x.timer.integration", ExchangeType.Direct)
+                                icfg.DeclareExchange("x.timer.integration", ExchangeType.Topic)
                                     .DeclareQueue("x_timer_queue")
-                                    .BindQueue("x_timer_queue", "x.timer.integration", nameof(TimerStartIntegrationEvent))
-                                    .BindQueue("x_timer_queue", "x.timer.integration", nameof(TimerExpiredIntegrationEvent))
+                                    .BindQueue("x_timer_queue", "x.timer.integration", "timer.start.#")
+                                    .BindQueue("x_timer_queue", "x.timer.integration", "timer.expired.#")
                                     .DeclareQueue("testhost_timer_queue")
-                                    .BindQueue("testhost_timer_queue", "x.timer.integration", nameof(TimerStartIntegrationEvent))
+                                    .BindQueue("testhost_timer_queue", "x.timer.integration", "timer.start.#")
                                     ;
                             })
                             ;
@@ -224,6 +224,7 @@ namespace Juice.Timers.Tests
 
             services.AddMessaging()
                 .AddIdempotencyRedis(redis => redis.ConnectionString = configuration.GetConnectionString("Redis"))
+                .AddPublishingPolicies(configuration.GetSection("EventBus:PublishingPolicies"))
                 .AddEventBus()
                     .AddPublishingServices()
                     .AddRabbitMQ(cfg =>
@@ -323,8 +324,8 @@ namespace Juice.Timers.Tests
                     {
                         cfg.AddConsumer("rabbitmq.x.timer", "timer_expired_queue", "rabbitmq", ccfg =>
                             {
-                                ccfg.Subscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>();
-                                ccfg.Subscribe<TimerStartIntegrationEvent, Api.IntegrationEvents.Handlers.TimerStartIntegrationEventHandler>();
+                                ccfg.Subscribe<TimerExpiredIntegrationEvent, TimerExpiredIntegrationEventHandler>("timer.expired.#");
+                                ccfg.Subscribe<TimerStartIntegrationEvent, Api.IntegrationEvents.Handlers.TimerStartIntegrationEventHandler>("timer.start.#");
                             });
                         ;
 
