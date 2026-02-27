@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Threading;
 using Juice.EventBus;
+using Juice.Messaging;
 using Juice.Services;
 using Juice.Timers.Api;
-using Juice.Timers.Api.Domain.EventHandlers;
 using Juice.Timers.Api.IntegrationEvents.Events;
 using Juice.Timers.Domain.Events;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
@@ -16,6 +15,7 @@ using RabbitMQ.Client;
 namespace Juice.Timers.Tests
 {
     [TestCaseOrderer("Juice.XUnit.PriorityOrderer", "Juice.XUnit")]
+    [InitializeMessageContext]
     public class CommandTests
     {
         private ITestOutputHelper _output;
@@ -197,7 +197,6 @@ namespace Juice.Timers.Tests
         }
 
         [IgnoreOnCIFact(DisplayName = "Complete via EventBus"), TestPriority(900)]
-        [InitializeMessageContext]
         public async Task Should_complete_via_eventbus_Async()
         {
             var hostBuilder = WebApplication.CreateBuilder();

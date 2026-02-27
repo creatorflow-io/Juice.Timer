@@ -1,4 +1,4 @@
-﻿using Juice.EventBus;
+﻿using Juice.Messaging;
 using Juice.Timers.Api.IntegrationEvents.Events;
 
 namespace Juice.Timers.Api.IntegrationEvents.Handlers
