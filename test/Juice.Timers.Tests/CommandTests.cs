@@ -14,7 +14,7 @@ using RabbitMQ.Client;
 
 namespace Juice.Timers.Tests
 {
-    [TestCaseOrderer("Juice.XUnit.PriorityOrderer", "Juice.XUnit")]
+    [TestCaseOrderer(typeof(PriorityOrderer))]
     [InitializeMessageContext]
     public class CommandTests
     {
